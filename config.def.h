@@ -1,3 +1,4 @@
+#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -11,19 +12,20 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrains Mono NF:size=12", "SymbolsNerdFont:weight=bold:size=12" };
+static const char *fonts[]          = { "JetBrains Mono NF:size=14:antialias=true:autohint=true", "SymbolsNerdFont:weight=bold:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-/* custom colors */
-static const char col_white[]	    = "#46152a";
+/* my custom colors */
+static const char col_lgblue[]	    = "#81a1c1";
+static const char col_dargray[]	    = "#2e3440";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_white },
+	/*               fg         bg         	  border   */
+	[SchemeNorm] = { col_gray3, col_dargray,  col_dargray },
+	[SchemeSel]  = { col_lgblue, col_dargray,  col_lgblue },
 };
 
 /* tagging */
@@ -36,7 +38,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
-	{ "Firefox",  NULL,       NULL,       0,       	    0,           -1 },
+	{ "firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
 };
 
 /* layout(s) */
@@ -71,6 +73,11 @@ static const char *termcmd[]  = { "alacritty", NULL };
 /* custom commands */
 static const char *rofi[] = { "rofi", "-show", "drun", "-show-emojis", NULL };
 static const char *code[] = { "code", NULL };
+/* audio FN key constants */
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",    NULL  };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",    NULL  };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle", NULL  };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = rofi } },
@@ -112,6 +119,10 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	/* for audio control */
+	{ 0,       XF86XK_AudioLowerVolume,  spawn, {.v = downvol} },
+	{ 0,       XF86XK_AudioRaiseVolume,  spawn, {.v = upvol} },
+	{ 0,       XF86XK_AudioMute,         spawn, {.v = mutevol} },
 };
 
 /* button definitions */
