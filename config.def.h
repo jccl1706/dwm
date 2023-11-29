@@ -28,7 +28,8 @@ static const char col_lgblue[]	    = "#81a1c1";
 static const char *colors[][3]      = {
 	/*               fg         bg         	  border   */
 	[SchemeNorm] = { col_white, col_dargray,  col_lggray },
-	[SchemeSel]  = { col_white, col_lggray,   col_lgblue },
+	[SchemeSel]  = { col_lgblue, col_lggray,   col_lgblue },
+  [SchemeTitle]  = { col_white, col_dargray,  col_dargray  },
 };
 
 /* tagging */
@@ -39,10 +40,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      		  instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     		  NULL,       NULL,       0,            0,            -1 },
-	{ "firefox",  		  NULL,       NULL,       1 << 1,       0,            -1 },
-	{ "Lxappearance",  	NULL,       NULL,       0,            1,            -1 },
+  /* class            instance        title       tags mask     isfloating      monitor        float x,y,w,h         floatborderpx*/
+	{ "Gimp",     		  NULL,           NULL,       0,            0,              -1,                                        },
+	{ "firefox",  		  NULL,           NULL,       1 << 1,       0,              -1,                                        },
+	{ "Lxappearance",  	NULL,           NULL,       0,            1,              -1,          994,456,654,552,              },
+  { "Virt-manager",  	NULL,           NULL,       1 << 3,       1,              -1,          1992,58,526,513,              },
+  {  NULL,  	       "virt-manager",  NULL,       1 << 3,       1,              -1,          57,59,1914,1180,              },
 };
 
 /* layout(s) */
