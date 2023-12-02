@@ -12,7 +12,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Ubuntu Nerd Font:size=13:antialias=true:autohint=true", "SymbolsNerdFont:weight=bold:size=12" };
+static const char *fonts[]          = { "Hack:weight=bold:size=12:antialias=true:autohint=true", "Symbols Nerd Font Mono:size=16" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -22,14 +22,14 @@ static const char col_cyan[]        = "#005577";
 
 /* my custom colors */
 static const char col_white[]	      = "#eceff4";
-static const char col_dargray[]	    = "#191c23";
+static const char col_darkblue[]	  = "#1e1e2e";
 static const char col_lggray[]	    = "#2e3440";
 static const char col_lgblue[]	    = "#81a1c1";
 static const char *colors[][3]      = {
 	/*               fg         bg         	  border   */
-	[SchemeNorm] = { col_white, col_dargray,  col_lggray },
-	[SchemeSel]  = { col_lgblue, col_lggray,   col_lgblue },
-  [SchemeTitle]  = { col_white, col_dargray,  col_dargray  },
+	[SchemeNorm] = { col_white, col_darkblue,  col_lggray },
+	[SchemeSel]  = { col_lgblue, col_darkblue,   col_lgblue },
+  [SchemeTitle]  = { col_white, col_darkblue,  col_darkblue },
 };
 
 /* tagging */
@@ -40,12 +40,13 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-  /* class            instance        title       tags mask     isfloating      monitor        float x,y,w,h         floatborderpx*/
-	{ "Gimp",     		  NULL,           NULL,       0,            0,              -1,                                        },
-	{ "firefox",  		  NULL,           NULL,       1 << 1,       0,              -1,                                        },
-	{ "Lxappearance",  	NULL,           NULL,       0,            1,              -1,          994,456,654,552,              },
-  { "Virt-manager",  	NULL,           NULL,       1 << 3,       1,              -1,          1992,58,526,513,              },
-  {  NULL,  	       "virt-manager",  NULL,       1 << 3,       1,              -1,          57,59,1914,1180,              },
+  /* class            		instance           title       tags mask     isfloating      monitor        float x,y,w,h         floatborderpx*/
+	{ "Gimp",     		      NULL,            NULL,       0,            0,              -1,                                        },
+	{ "firefox",  		      NULL,            NULL,       1 << 1,       0,              -1,                                        },
+	{ "Lxappearance",  	    NULL,            NULL,       0,            1,              -1,          994,456,654,552,              },
+  { "Virt-manager",  	    NULL,            NULL,       1 << 3,       1,              -1,          1992,58,526,513,              },
+	{  NULL,  	  	        "pavucontrol",   NULL,       0,            1,              -1,          41,65,1197,944,		},
+
 };
 
 /* layout(s) */
@@ -138,7 +139,6 @@ static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
